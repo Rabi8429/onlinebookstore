@@ -42,12 +42,15 @@
 # Use Tomcat base image
 FROM tomcat:9.0
 
-# Remove default apps
+# Clean the default webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy your WAR file into Tomcat's webapps directory
+# Copy the WAR file to ROOT.war
 COPY target/onlinebookstore.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expose port
+# Expose Tomcat's default port
 EXPOSE 8080
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]
 
