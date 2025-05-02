@@ -5,52 +5,52 @@
 #################################################
 
 
-#     FROM maven:3-eclipse-temurin-21-alpine AS build
+    FROM maven:3-eclipse-temurin-21-alpine AS build
 
-#     # Set working directory inside the container
-#     WORKDIR /app
+    # Set working directory inside the container
+    WORKDIR /app
     
-#     # Copy the entire source code
-#     COPY . .
+    # Copy the entire source code
+    COPY . .
     
-#     # Overwrite the default application.properties with a custom one
-#     # Ensure the path is correct relative to WORKDIR
-#     #COPY application.properties src/main/resources/application.properties
+    # Overwrite the default application.properties with a custom one
+    # Ensure the path is correct relative to WORKDIR
+    #COPY application.properties src/main/resources/application.properties
     
-#     # Run Maven build
-#     RUN mvn clean package -DskipTests
+    # Run Maven build
+    RUN mvn clean package -DskipTests
     
-#     # ---- Stage 2: Run the app on Tomcat ----
-#     FROM tomcat:9.0
+    # ---- Stage 2: Run the app on Tomcat ----
+    FROM tomcat:9.0
     
-#     # Remove default Tomcat apps to clean up
-#     RUN rm -rf /usr/local/tomcat/webapps/*
+    # Remove default Tomcat apps to clean up
+    RUN rm -rf /usr/local/tomcat/webapps/*
     
-#     # Copy the built WAR from the previous stage to Tomcat's ROOT context
-#     COPY --from=build /app/target/onlinebookstore.war /usr/local/tomcat/webapps/ROOT.war
+    # Copy the built WAR from the previous stage to Tomcat's ROOT context
+    COPY --from=build /app/target/onlinebookstore.war /usr/local/tomcat/webapps/ROOT.war
     
-#     # Expose port 8080
-#     EXPOSE 8080
+    # Expose port 8080
+    EXPOSE 8080
     
-#     # Default command to run Tomcat
-#     CMD ["catalina.sh", "run"]
+    # Default command to run Tomcat
+    CMD ["catalina.sh", "run"]
 
 
 #######################################################
 
 
-# Use Tomcat base image
-FROM tomcat:9.0
+# # Use Tomcat base image
+# FROM tomcat:9.0
 
-# Clean the default webapps
-RUN rm -rf /usr/local/tomcat/webapps/*
+# # Clean the default webapps
+# RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy the WAR file to ROOT.war
-COPY /target/onlinebookstore.war /usr/local/tomcat/webapps/ROOT.war
+# # Copy the WAR file to ROOT.war
+# COPY /target/onlinebookstore.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expose Tomcat's default port
-EXPOSE 8080
+# # Expose Tomcat's default port
+# EXPOSE 8080
 
-# Start Tomcat
-CMD ["catalina.sh", "run"]
+# # Start Tomcat
+# CMD ["catalina.sh", "run"]
 
