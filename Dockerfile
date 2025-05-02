@@ -46,7 +46,7 @@ FROM tomcat:9.0
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy the WAR file to ROOT.war
-COPY target/onlinebookstore.war /usr/local/tomcat/webapps/ROOT.war
+COPY /target/onlinebookstore.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expose Tomcat's default port
 EXPOSE 8080
