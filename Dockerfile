@@ -1,9 +1,9 @@
-# # ---- Stage 1: Build the application using Maven ----
+# 
 
 ########################################################
 ## multistage dockefile
 #################################################
-
+   # ---- Stage 1: Build the application using Maven ----
 
     FROM maven:3-eclipse-temurin-21-alpine AS build
 
